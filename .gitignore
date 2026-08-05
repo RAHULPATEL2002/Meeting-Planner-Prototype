@@ -1,0 +1,28 @@
+# ── Python ────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.coverage
+htmlcov/
+.ruff_cache/
+
+# ── Application data (generated at runtime, never committed) ──────────
+backend/meeting_planner.db
+backend/*.db
+backend/*.db-journal
+backend/uploads/
+backend/.env
+
+# ── Node / Angular ────────────────────────────────────────────────────
+node_modules/
+frontend/dist/
+frontend/.angular/
+npm-debug.log*
+
+# ── Editors / OS ──────────────────────────────────────────────────────
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

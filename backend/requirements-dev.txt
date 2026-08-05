@@ -1,0 +1,7 @@
+# Development / test dependencies (installs the runtime set too).
+-r requirements.txt
+
+pytest==8.4.2
+pytest-cov==6.3.0
+httpx==0.28.1      # transport used by fastapi.testclient
+ruff==0.14.0       # linter + formatter

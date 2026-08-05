@@ -1,0 +1,11 @@
+# Runtime dependencies. Pinned so a fresh checkout installs a known-good set.
+fastapi==0.118.0
+uvicorn[standard]==0.37.0
+sqlalchemy==2.0.43
+pydantic==2.11.9
+pydantic-settings==2.11.0
+email-validator==2.3.0
+python-multipart==0.0.20   # multipart/form-data parsing for avatar uploads
+PyJWT==2.10.1              # JWT signing/verification
+bcrypt==4.3.0              # password hashing
+pillow==11.3.0             # image validation + normalisation
