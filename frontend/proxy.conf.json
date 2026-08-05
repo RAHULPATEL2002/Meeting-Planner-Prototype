@@ -1,0 +1,13 @@
+{
+  "//": "Dev-server proxy. The browser talks only to localhost:4200, so the app can use relative URLs (/api/..., /static/...) and never hits CORS or a hard-coded backend host. The same relative URLs work in production behind a single reverse proxy.",
+  "/api": {
+    "target": "http://127.0.0.1:8000",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/static": {
+    "target": "http://127.0.0.1:8000",
+    "secure": false,
+    "changeOrigin": true
+  }
+}
