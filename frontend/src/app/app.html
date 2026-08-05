@@ -1,0 +1,27 @@
+<header class="topbar">
+  <a class="topbar__brand" routerLink="/meetings">
+    <span class="topbar__logo" aria-hidden="true">📅</span>
+    Meeting Planner
+  </a>
+
+  @if (isAuthenticated() && user(); as me) {
+    <nav class="topbar__nav">
+      <a routerLink="/meetings" routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: true }">
+        Meetings
+      </a>
+      <a routerLink="/meetings/new" routerLinkActive="is-active">New</a>
+    </nav>
+
+    <div class="topbar__user">
+      <a routerLink="/profile" class="topbar__profile" [title]="me.email">
+        <app-avatar [name]="me.full_name" [url]="me.avatar_url" [size]="32" />
+        <span class="topbar__name">{{ me.full_name }}</span>
+      </a>
+      <button type="button" class="btn btn--ghost" (click)="signOut()">Sign out</button>
+    </div>
+  }
+</header>
+
+<main class="shell">
+  <router-outlet />
+</main>

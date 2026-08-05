@@ -1,0 +1,264 @@
+/**
+ * Global styles.
+ *
+ * Hand-written rather than pulling in a component library: the UI is small, and
+ * a handful of CSS custom properties plus a few utility classes keep every page
+ * consistent without a 300 kB dependency. Dark mode falls out of the same
+ * variables via `prefers-color-scheme`.
+ */
+
+:root {
+  --brand: #2d5bd7;
+  --brand-dark: #1f47b0;
+  --surface: #ffffff;
+  --surface-2: #f4f6fa;
+  --bg: #eef1f6;
+  --border: #dfe3ec;
+  --text: #1b2333;
+  --text-muted: #66708a;
+  --danger: #c62828;
+  --radius: 12px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --surface: #1a1f2b;
+    --surface-2: #232936;
+    --bg: #12161f;
+    --border: #2e3646;
+    --text: #e8ecf4;
+    --text-muted: #97a1b8;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family:
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+  line-height: 1.5;
+}
+
+a {
+  color: var(--brand);
+}
+
+h1 {
+  font-size: 1.6rem;
+}
+h2 {
+  font-size: 1.15rem;
+}
+
+.muted {
+  color: var(--text-muted);
+}
+
+/* ── Layout ─────────────────────────────────────────────────────────── */
+
+.page {
+  display: grid;
+  gap: 1rem;
+}
+
+.page--narrow {
+  max-width: 720px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.page__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.page__header h1 {
+  margin: 0;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+}
+
+.card h2 {
+  margin-top: 0;
+}
+
+.auth-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+  max-width: 400px;
+  margin: 3rem auto;
+}
+
+.auth-card h1 {
+  margin-top: 0;
+}
+
+/* ── Forms ──────────────────────────────────────────────────────────── */
+
+label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: 0.9rem 0 0.3rem;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+}
+
+input:focus-visible,
+textarea:focus-visible,
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+input:disabled {
+  background: var(--surface-2);
+  color: var(--text-muted);
+}
+
+textarea {
+  resize: vertical;
+}
+
+small.error {
+  display: block;
+  color: var(--danger);
+  margin-top: 0.25rem;
+}
+
+small.muted {
+  display: block;
+  margin-top: 0.25rem;
+}
+
+/* ── Buttons ────────────────────────────────────────────────────────── */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.55rem 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn:hover:not(:disabled) {
+  border-color: var(--brand);
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.btn--primary {
+  background: var(--brand);
+  border-color: var(--brand);
+  color: #fff;
+}
+
+.btn--primary:hover:not(:disabled) {
+  background: var(--brand-dark);
+}
+
+.btn--ghost {
+  border-color: transparent;
+  background: transparent;
+  color: var(--text-muted);
+}
+
+.btn--danger-ghost {
+  border-color: transparent;
+  background: transparent;
+  color: var(--danger);
+}
+
+form .btn[type='submit'] {
+  margin-top: 1.25rem;
+}
+
+/* ── Feedback ───────────────────────────────────────────────────────── */
+
+.alert {
+  border-radius: 8px;
+  padding: 0.7rem 0.9rem;
+  margin-top: 1rem;
+  border: 1px solid transparent;
+  font-size: 0.92rem;
+}
+
+.alert ul {
+  margin: 0.4rem 0 0.2rem;
+  padding-left: 1.1rem;
+}
+
+.alert--error {
+  background: #fdeaea;
+  color: #8f1616;
+  border-color: #f3c4c4;
+}
+
+.alert--warning {
+  background: #fff6e2;
+  color: #7a5200;
+  border-color: #f0dcae;
+}
+
+.alert--success {
+  background: #e7f7ed;
+  color: #14713a;
+  border-color: #b9e3c8;
+}
+
+.chip {
+  display: inline-block;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+}
