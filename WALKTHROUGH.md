@@ -41,7 +41,6 @@ FastAPI (uvicorn, port 8000)
 7. **Response model.** `response_model=MeetingDetail` filters and shapes the
    output — a field not on the schema cannot leak, even if the service returns it.
 
-> **Interview point:** steps 2–3 and 7 are why the handler bodies are three lines
 > long. Validation and authorisation are declarative and happen at the edges.
 
 ---
