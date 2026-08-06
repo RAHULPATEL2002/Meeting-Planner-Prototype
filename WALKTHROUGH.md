@@ -333,7 +333,7 @@ Factory fixtures (`register_user`, `alice`, `bob`, `meeting_payload`, `window`,
 | `test_conflicts.py` | Parametrised overlap table (partial / identical / contained / disjoint / **touching**), conflicts are per-viewer, preview endpoint, route-shadowing |
 | `test_ics.py` | Escaping order, folding at 75 octets, multi-byte safety, endpoint headers, PARTSTAT reflects RSVP |
 
-*Interview line:* "the happy paths are the boring half. The tests I would point
+"the happy paths are the boring half. The tests I would point
 at are `test_back_to_back_meetings_are_not_conflicts`, `test_a_stranger_gets_404_not_403`,
 and `test_password_longer_than_72_bytes_is_rejected` — each is a bug that would
 have shipped."
@@ -511,43 +511,3 @@ returns the refreshed detail, so the summary bar updates in the same round trip.
 visibility predicate and the same half-open overlap test, scoped to the viewer.
 
 ---
-
-## 7. Questions you should expect
-
-**"Why not a many-to-many between users and meetings?"**
-It cannot express inviting someone without an account, which is most invitations.
-`Participant` keys on email with an optional `user_id`; registering claims
-pending invites.
-
-**"Why naive UTC instead of timezone-aware columns?"**
-SQLite cannot store an offset, so an aware column would silently discard it. One
-explicit rule in `time_utils.py`, applied at both boundaries, with tests. On
-Postgres I would use `timestamptz` and delete that module.
-
-**"Why 404 instead of 403?"**
-403 confirms the meeting exists. Visibility is filtered in the same query that
-fetches the row, so unauthorised and non-existent are indistinguishable.
-
-**"Is a JWT in localStorage safe?"**
-It is the standard prototype trade-off: stateless, no CSRF surface, but readable
-by any XSS. The upgrade is a refresh token in an `HttpOnly` cookie plus a
-short-lived in-memory access token — listed in the README's limitations.
-
-**"How do you know the file upload is really an image?"**
-I do not trust the header. Pillow must fully decode the bytes, and the image is
-re-encoded, which also strips EXIF GPS data and any appended payload.
-
-**"What would break first at scale?"**
-SQLite write concurrency, then the unpaginated meetings list. Both are noted;
-neither is worth fixing in a prototype.
-
-**"What did you leave out, and why?"**
-The meeting edit UI (the API and tests exist; the form did not fit the timebox),
-migrations, and email delivery. The timebox went to the data model, the timezone
-boundary, conflict detection, and the tests around them — because those are the
-parts that are expensive to get wrong later.
-
-**"What are you least happy with?"**
-Hand-written TypeScript models. They can drift from the server contract, and the
-fix — generating them from the OpenAPI document FastAPI already publishes — is
-cheap. It is first on the improvements list.
